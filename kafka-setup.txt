@@ -1,0 +1,60 @@
+kafka setup in ec2
+
+wget https://downloads.apache.org/kafka/3.8.0/kafka_2.13-3.8.0.tgz
+tar -xvf kafka_2.13-3.8.0.tgz
+
+--------------------------------------------------------------------------
+
+cd kafka_2.13-3.8.0
+
+--------------------------------------------------------------------------
+
+installing java
+
+sudo yum install -y java-1.8.0-amazon-corretto
+
+java -version
+
+--------------------------------------------------------------------------
+
+extending kafka
+
+export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
+
+--------------------------------------------------------------------------
+
+Editing zookeeper
+
+sudo nano config/server.properties
+
+-------------------------------------------------------------------------
+Zookeeper server
+
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+-------------------------------------------------------------------------
+
+Kafka server
+
+bin/kafka-server-start.sh config/server.properties
+
+-------------------------------------------------------------------------
+
+
+creating the topic
+
+bin/kafka-topics.sh --create --topic demo_testing2 --bootstrap-server 43.204.237.120:9092 --replication-factor 1 --partitions 1
+
+-------------------------------------------------------------------------
+
+starting producer
+
+bin/kafka-console-producer.sh --topic demo_testing2 --bootstrap-server 43.204.237.120:9092 
+
+-------------------------------------------------------------------------
+
+starting consumer
+
+bin/kafka-console-consumer.sh --topic demo_testing2 --bootstrap-server 43.204.237.120:9092
+
+-------------------------------------------------------------------------
